@@ -5,8 +5,8 @@ set -e  # Exit on any error
 # Configuration
 REMOTE_USER="ckkspl"
 REMOTE_SERVER="s42.mydevil.net"
-REMOTE_DIR="~/domains/ckks.edu.pl/public_nodejs"
-WEBSITE_URL="https://ckks.edu.pl"
+REMOTE_DIR="~/domains/api.ckks.pl/public_nodejs"
+WEBSITE_URL="https://api.ckks.pl"
 
 echo "🚀 Starting deployment process..."
 
@@ -63,7 +63,7 @@ ssh ${REMOTE_USER}@${REMOTE_SERVER} << EOF
     fi
 
     echo "Restarting application..."
-    devil www restart ckks.edu.pl
+    devil www restart api.ckks.pl
 EOF
 
 echo "⏳ Waiting for application to start..."

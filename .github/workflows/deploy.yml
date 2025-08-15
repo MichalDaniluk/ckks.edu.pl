@@ -77,13 +77,13 @@ jobs:
           rm ckks-deployment.tar.gz
           
           # Restart server
-          devil www restart next.ckks.pl
+          devil www restart api.ckks.pl
         EOF
 
     - name: Health check
       run: |
         sleep 30
-        curl -f https://next.ckks.pl/api/course || exit 1
+        curl -f https://api.ckks.pl/api/course || exit 1
         echo "✅ Deployment successful and health check passed"
 
     - name: Cleanup SSH
