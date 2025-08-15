@@ -1,0 +1,92 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deployment even if tests fail'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests (can be skipped with force_deploy)
+      if: ${{ !inputs.force_deploy }}
+      run: |
+        npm run lint
+        npm run test
+
+    - name: Build for production
+      run: npm run build
+      env:
+        NODE_ENV: production
+        CKKS_API_URL: https://api.ckks.pl
+        API: https://api.ckks.pl/api
+
+    - name: Export static build
+      run: npm run prod
+      env:
+        NODE_ENV: production
+        CKKS_API_URL: https://api.ckks.pl
+        API: https://api.ckks.pl/api
+
+    - name: Deploy to server
+      run: |
+        # Install SSH key for server access
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        
+        # Create deployment archive
+        tar -czf ckks-deployment.tar.gz -C out .
+        
+        # Upload and deploy
+        scp ckks-deployment.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          # Backup current deployment
+          if [ -d public_html_backup ]; then
+            rm -rf public_html_backup
+          fi
+          if [ -d public_html ]; then
+            mv public_html public_html_backup
+          fi
+          
+          # Extract new deployment
+          mkdir -p public_html
+          tar -xzf ckks-deployment.tar.gz -C public_html
+          rm ckks-deployment.tar.gz
+          
+          # Restart server
+          devil www restart next.ckks.pl
+        EOF
+
+    - name: Health check
+      run: |
+        sleep 30
+        curl -f https://next.ckks.pl/api/course || exit 1
+        echo "✅ Deployment successful and health check passed"
+
+    - name: Cleanup SSH
+      if: always()
+      run: |
+        rm -f ~/.ssh/id_rsa
