@@ -7,6 +7,7 @@ import StartTabs from '@components/start/StartTabs';
 import CardsSectionCourse from '@components/cards/CardsSectionCourse';
 import NewApplications from '@components/start/NewApplications/NewApplications';
 import { NumbersSection } from '@components/Numbers/NumbersSection';
+import { CourseElement } from '@interfaces/Course';
 //import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
 
 //SwiperCore.use([Navigation, Pagination, Autoplay]);
@@ -19,7 +20,7 @@ import { NumbersSection } from '@components/Numbers/NumbersSection';
 	const [blog, setBlog] = useState([]);
 	const [news, setNews] = useState([]);
 	const [courses, setCourses] = useState([]);
-	const [runningCourses, setRunningCourses] = useState<any[]>([]);
+	const [runningCourses, setRunningCourses] = useState<CourseElement[]>([]);
 	const [error, setError] = useState('');
 
 	useEffect(() => {

@@ -3,7 +3,12 @@ import CardCourse from '@components/cards/CardCourse';
 import CardCourseWrapper from '@components/cards/CardCourseWrapper';
 import { CourseElement } from '@interfaces/Course';
 
-const CardsSectionCourse = ({list = [],title}) => {
+interface CardsSectionCourseProps {
+  list?: CourseElement[];
+  title?: string;
+}
+
+const CardsSectionCourse = ({list = [], title}: CardsSectionCourseProps) => {
   const courseList = Array.isArray(list) ? list : [];
   
   return (
