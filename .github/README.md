@@ -40,7 +40,7 @@ This directory contains GitHub Actions workflows for the CKKS educational platfo
 **Purpose:** Automated security scanning and dependency auditing
 
 **Features:**
-- npm audit for security vulnerabilities
+- yarn audit for security vulnerabilities
 - Dependency outdated check
 - GitHub CodeQL static analysis
 - Weekly scheduled scans
@@ -115,11 +115,11 @@ API=https://api.ckks.pl/api               # Legacy API fallback
 
 ## Build Process
 
-1. **Install**: `npm ci` (clean install)
-2. **Lint**: `npm run lint` (ESLint with auto-fix)
-3. **Test**: `npm run test` (Jest test suite)
-4. **Build**: `npm run build` (Next.js production build)
-5. **Export**: `npm run prod` (Static export to `/out`)
+1. **Install**: `yarn install --frozen-lockfile` (clean install)
+2. **Lint**: `yarn lint` (ESLint with auto-fix)
+3. **Test**: `yarn test` (Jest test suite)
+4. **Build**: `yarn build` (Next.js production build)
+5. **Export**: `yarn prod` (Static export to `/out`)
 6. **Deploy**: Upload `/out` contents to server
 
 ## Troubleshooting
@@ -169,10 +169,10 @@ git push origin feature/new-feature
 ### Local Testing
 Before pushing, test locally:
 ```bash
-npm run lint
-npm run test
-npm run build
-npm run prod
+yarn lint
+yarn test
+yarn build
+yarn prod
 ```
 
 ## Additional Resources
