@@ -1,0 +1,64 @@
+@use '../abstracts/' as *;
+
+.signup-table__container {
+	margin:1rem auto;
+	margin-bottom:5rem;
+	max-width:var(--max-width);
+	font-size: .8rem;
+
+	@include mq(desktop) {
+		font-size: 1rem;
+	}
+}
+
+.signup-table__main-title {
+	margin-left:1rem;
+}
+
+.signup-table__container table {
+	width:95%;
+	margin-left:1rem;
+	margin-right:1rem;
+	box-shadow:2px 2px 5px #ccc;
+}
+
+.signup-table__container table th {
+	background-color:var(--main-clr);
+	color:var(--dark-clr);
+	border-bottom:2px solid var(--light-one);
+	border-right:2px solid var(--light-one);
+	padding:.5rem;
+	border-radius: .5rem;
+}
+
+.signup-table__container table td {
+	background-color:var(--dark-clr);
+	color:var(--light-one);
+	border-bottom:2px solid var(--light-one);
+	border-right:2px solid var(--light-one);
+	padding:.5rem;
+	border-radius: .5rem;
+}
+
+.signup-table__container .mobile {
+	display:none;
+}
+
+@include mq(tablet) {
+
+	.signup-table__container .mobile {
+		display:table-cell;
+	}
+
+	.signup-table__main-title {
+		margin:1rem auto;
+		width:80%;
+		text-align:left;
+	}
+
+	.signup-table table {
+		width:80%;
+		margin:1rem auto;
+	}
+
+}

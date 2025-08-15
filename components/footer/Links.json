@@ -1,0 +1,82 @@
+[
+    {
+      "title":"rusza na 100%",
+      "href":"/kursy-ruszajace"
+    },
+    {
+      "title":"szkolenia dla oświaty",
+      "href":"/kursy-i-szkolenia?search=oswiata"
+    },
+	{
+		"title":"nasza kadra",
+		"href":"/kadra"
+	},
+	{
+		"title":"dofinansowania",
+		"href":"/dofinansowania"
+	},
+	{
+		"title":"O nas",
+		"href":"/onas"
+	},
+	{
+		"title":"studia podyplomowe",
+		"href":"/podyplomowe"
+	},
+	{
+		"title":"kursy dla fizjoterapeutów",
+		"href":"/kursy-i-szkolenia?search=fizjoterapia"
+	},
+	{
+		"title":"współpraca",
+		"href":"/wspołpraca"
+	},
+	{
+		"title":"regulamin",
+		"href":"/regulamin"
+	},
+	{
+		"title":"kontakt",
+		"href":"/kontakt"
+	},
+	{
+		"title":"kursy instruktorskie",
+		"href":"/kursy-i-szkolenia?search=instruktorskie"
+	},
+	{
+		"title":"szkolenia sportowe",
+		"href":"/kursy-i-szkolenia?search=sport"
+	},
+	{
+		"title":"praca w ckks",
+		"href":"/praca"
+	},
+	{
+		"title":"newsletter",
+		"href":"/newsletter"
+	},
+	{
+		"title":"blog",
+		"href":"/blog"
+	},
+	{
+		"title":"kursy trenerskie",
+		"href":"/kursy-i-szkolenia?search=trenerskie"
+	},
+	{
+		"title":"kursy on-line",
+		"href":"/kursy-i-szkolenia?search=on-line"
+	},
+	{
+		"title":"ważne informacje",
+		"href":"/wazne-informacje-kwestionariusz-osobowy"
+	},
+	{
+		"title":"polityka prywatności",
+		"href":"/polityka"
+	},
+	{
+		"title":"galeria zdjęć",
+		"href":"/galeria"
+	}
+]

@@ -1,0 +1,13 @@
+.wrapper {
+	position:relative;
+	background-color:#eee;
+}
+
+.info {
+	position:absolute;
+	top:15%;
+	left: 35%;
+	color:#efefef;
+	font-weight: bold;
+	font-size:2rem;
+}

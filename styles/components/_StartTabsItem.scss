@@ -1,0 +1,22 @@
+//@use '../abstracts/' as *;
+
+//.tabcontent-container h3 {
+//	position: relative;
+//	width: max-content;
+//  }
+//  .tabcontent-container h3::after {
+//	content: '';
+//	position: absolute;
+//	left: 0;
+//	bottom: -0.4rem;
+//	background-color: var(--light-two);
+//	height: 0.5rem;
+//	width: 100%;
+//  }
+
+//  @include mq(tablet) {
+//	.tab-content-wrapper h3,
+//	.tab-content-wrapper div {
+//	  width: 100%;
+//	}
+//  }

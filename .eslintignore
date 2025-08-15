@@ -1,0 +1,16 @@
+*.html
+*.css
+*.ttf
+*.rst
+node_modules/
+.next/
+out/
+__tests__/
+*.test.js
+*.test.ts
+*.test.tsx
+app.js
+env-config.js
+myscript.js
+public/js/
+app/

@@ -1,0 +1,6 @@
+.link {
+	color:var(--main-clr);
+	text-decoration:underline;
+	font-weight:bold;
+	min-height: 1rem;
+}
