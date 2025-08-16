@@ -34,14 +34,7 @@ jobs:
         npm run lint
         npm run test
 
-    - name: Build for production
-      run: npm run build
-      env:
-        NODE_ENV: production
-        CKKS_API_URL: https://api.ckks.pl
-        API: https://api.ckks.pl/api
-
-    - name: Export static build
+    - name: Build and export for production
       run: npm run prod
       env:
         NODE_ENV: production

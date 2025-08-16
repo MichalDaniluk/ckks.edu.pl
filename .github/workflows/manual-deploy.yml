@@ -44,14 +44,7 @@ jobs:
         npm run lint
         npm run test
 
-    - name: Build for ${{ inputs.environment }}
-      run: npm run build
-      env:
-        NODE_ENV: production
-        CKKS_API_URL: ${{ inputs.environment == 'production' && 'https://api.ckks.pl' || 'https://api-staging.ckks.pl' }}
-        API: ${{ inputs.environment == 'production' && 'https://api.ckks.pl/api' || 'https://api-staging.ckks.pl/api' }}
-
-    - name: Export static build
+    - name: Build and export for ${{ inputs.environment }}
       run: npm run prod
       env:
         NODE_ENV: production

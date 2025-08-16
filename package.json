@@ -14,7 +14,7 @@
 		"test": "jest --passWithNoTests",
 		"test:api": "cd api && npm test",
 		"test:all": "npm run test && npm run test:api",
-		"prod": "next export"
+		"prod": "next build"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
