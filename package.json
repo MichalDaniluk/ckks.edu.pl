@@ -11,7 +11,7 @@
 		"start": "next start -p 4000",
 		"lint": "eslint ./ --ext js,jsx,ts,tsx --fix --max-warnings 100 || true",
 		"test_watch": "jest --watch",
-		"test": "jest",
+		"test": "jest --passWithNoTests",
 		"test:api": "cd api && npm test",
 		"test:all": "npm run test && npm run test:api",
 		"prod": "next export"
