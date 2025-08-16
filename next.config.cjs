@@ -6,8 +6,6 @@ module.exports = {
   trailingSlash: false,
   images: {
     unoptimized: true,
-    loader: 'custom',
-    loaderFile: './image-loader.js',
   },
 
   webpack5: true,
