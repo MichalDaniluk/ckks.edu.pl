@@ -52,7 +52,7 @@ MySQL Database (mysql42.mydevil.net)
 
 #### Production Environment (MyDevil.net)
 ```
-Next.js Frontend (https://next.ckks.pl)
+Next.js Frontend (https://ckks.edu.pl)
     ↓ proxy API calls
 NestJS API (https://api.ckks.pl) - separate application
     ↓ connect to
@@ -80,7 +80,7 @@ npm run build
 # Start production server on port 4000
 npm run start
 
-# Generate static export (for deployment)
+# Build for production deployment
 npm run prod
 ```
 
@@ -200,16 +200,16 @@ import { Interface } from '@interfaces/Interface';
 ## Deployment
 
 ### Production Deployment
-- **Automatic**: Push to `main` branch triggers GitHub Actions deployment to `https://next.ckks.pl`
-- **Manual**: Use GitHub Actions "Deploy using deploy.sh script" workflow
+- **Automatic**: Push to `main` branch triggers GitHub Actions deployment to `https://ckks.edu.pl`
+- **Manual**: Use GitHub Actions "Deploy to Production" workflow
 - **Local**: `npm run prod` generates static files in `/out` directory
 
 ### Deployment Process
 1. Build validation (tests, linting, build) 
-2. **Frontend Deployment**: Deploy Next.js static export to `public_html`
-3. File transfer via SSH to `ckkspl@s42.mydevil.net`
-4. Server restart: `devil www restart next.ckks.pl`
-5. Health check verification
+2. **Frontend Deployment**: Deploy Next.js build to `public_nodejs` directory
+3. File transfer via rsync to `ckkspl@s42.mydevil.net`
+4. Server restart: `devil www restart ckks.edu.pl`
+5. Health check verification: `curl https://ckks.edu.pl/api/course`
 6. **Note**: API deployment is separate (not included in this repository)
 
 ### Environment Variables
@@ -360,10 +360,10 @@ When working with this codebase:
 
 ### Production Deployment Notes
 - **MyDevil.net**: Uses Phusion Passenger for process management
-- **Frontend**: Deployed as static export to `next.ckks.pl`
+- **Frontend**: Deployed as Next.js application to `ckks.edu.pl`
 - **API**: Separate NestJS application at `api.ckks.pl`
 - **Email System**: Integrated with course applications in API
-- **Health Check**: `curl https://next.ckks.pl/api/course`
+- **Health Check**: `curl https://ckks.edu.pl/api/course`
 
 ## Debugging and Troubleshooting
 
@@ -446,6 +446,24 @@ curl http://localhost:3000/api/course  # Via Next.js proxy
 - **Environment Variables**: All API proxy routes now use `CKKS_API_URL` properly
 - Fixed course content display in CourseTabs component (components/CourseTabs.tsx:131, 146, 155)
 - Resolved 500 errors on course API endpoints by fixing CKKS_API_URL configuration
+
+## GitHub Actions Deployment
+
+### Workflow Configuration
+The repository includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that:
+- Triggers on push to `main` branch or manual dispatch
+- Runs tests and linting (can be skipped with `force_deploy` flag)
+- Builds the application with production environment variables
+- Deploys via rsync to MyDevil.net server
+- Performs health checks after deployment
+
+### Required GitHub Secrets
+- `SSH_PRIVATE_KEY`: Private SSH key for server access
+- `SSH_HOST`: Server hostname (s42.mydevil.net)
+- `SSH_USER`: Username (ckkspl)
+
+### Manual Deployment
+Use the "Deploy to Production" workflow with manual dispatch for emergency deployments or when tests are failing but deployment is needed.
 
 ## Additional Notes
 - **News Section Note**: "news to nie jest blog" - indicating that the current news implementation might not strictly follow traditional blog formats

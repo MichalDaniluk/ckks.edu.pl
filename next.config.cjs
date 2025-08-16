@@ -1,13 +1,11 @@
 module.exports = {
-  output: 'export',
   poweredByHeader: false,
   reactStrictMode: true,
   concurrentFeatures: true,
   trailingSlash: false,
   images: {
-    unoptimized: true,
-    loader: 'custom',
-    loaderFile: './image-loader.js',
+    unoptimized: false,
+    domains: ['ckks.edu.pl', 'api.ckks.pl'],
   },
 
   webpack5: true,

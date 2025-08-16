@@ -12,17 +12,12 @@ The CKKS platform consists of two separate applications:
 ### Directory Structure
 ```
 /usr/home/ckkspl/domains/
-├── next.ckks.pl/
+├── ckks.edu.pl/
 │   └── public_html/          # Next.js Frontend
 │       ├── out/              # Static export files
 │       ├── _next/
 │       └── index.html
-└── api.ckks.pl/
-    └── public_html/          # NestJS API
-        ├── dist/             # Compiled API
-        ├── node_modules/
-        ├── package.json
-        └── app.js            # Passenger entry point
+
 ```
 
 ### Deployment Steps
@@ -34,11 +29,11 @@ cd api
 npm run build
 
 # Upload to server
-scp -r dist package.json app.js ckkspl@s42.mydevil.net:domains/api.ckks.pl/public_html/
+scp -r dist package.json app.js ckkspl@s42.mydevil.net:domains/ckks.edu.pl/public_html/
 
 # SSH to server and install dependencies
 ssh ckkspl@s42.mydevil.net
-cd domains/api.ckks.pl/public_html
+cd domains/ckks.edu.pl/public_html
 npm install --production
 
 # Configure Passenger
@@ -56,7 +51,7 @@ npm run build
 npm run prod
 
 # Upload to server
-scp -r out/* ckkspl@s42.mydevil.net:domains/next.ckks.pl/public_html/
+scp -r out/* ckkspl@s42.mydevil.net:domains/ckks.edu.pl/public_html/
 ```
 
 #### 3. Configure Environment Variables
@@ -75,21 +70,18 @@ EMAIL_USER=your_email@gmail.com
 EMAIL_PASSWORD=your_app_password
 ```
 
-**On Frontend server (next.ckks.pl):**
+**On Frontend server (ckks.edu.pl):**
 ```env
 NODE_ENV=production
 CKKS_API_URL=https://api.ckks.pl
 API=https://api.ckks.pl/api
-NEXT_PUBLIC_SITE_URL=https://next.ckks.pl
+NEXT_PUBLIC_SITE_URL=https://ckks.edu.pl
 ```
 
 #### 4. Restart Services
 ```bash
-# Restart API
-devil www restart api.ckks.pl
-
 # Restart Frontend
-devil www restart next.ckks.pl
+devil www restart ckks.edu.pl
 ```
 
 ### Health Checks
@@ -98,10 +90,10 @@ devil www restart next.ckks.pl
 curl https://api.ckks.pl/api/course
 
 # Check Frontend
-curl https://next.ckks.pl
+curl https://ckks.edu.pl
 
 # Check integration
-curl https://next.ckks.pl/api/course
+curl https://ckks.edu.pl/api/course
 ```
 
 ### Troubleshooting
@@ -112,10 +104,6 @@ curl https://next.ckks.pl/api/course
 3. **CORS errors**: Ensure API allows frontend domain
 4. **Email not working**: Check SMTP configuration
 
-#### Logs Location:
-- API logs: `/usr/home/ckkspl/domains/api.ckks.pl/public_html/logs/`
-- Frontend logs: Check browser console and server logs
-
 ### Monitoring
 - **API Health**: `GET /api/course` should return course data
 - **Database**: Check MySQL connection and query performance
@@ -125,7 +113,7 @@ curl https://next.ckks.pl/api/course
 
 | Aspect | Development | Production |
 |--------|-------------|------------|
-| Frontend | localhost:3000 | https://next.ckks.pl |
+| Frontend | localhost:3000 | https://ckks.edu.pl |
 | API | localhost:3001 | https://api.ckks.pl |
 | Database | Remote MySQL | Remote MySQL |
 | Email | Ethereal (test) | Gmail SMTP |

@@ -34,8 +34,8 @@ jobs:
         npm run lint
         npm run test
 
-    - name: Build and export for production
-      run: npm run prod
+    - name: Build for production
+      run: npm run build
       env:
         NODE_ENV: production
         CKKS_API_URL: https://api.ckks.pl
@@ -51,8 +51,9 @@ jobs:
         
         # Use rsync to deploy .next build directory and required files
         rsync -avz --delete .next/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/domains/ckks.edu.pl/public_nodejs/.next/
-        rsync -avz package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/domains/ckks.edu.pl/public_nodejs/
+        rsync -avz package.json package-lock.json server.js ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/domains/ckks.edu.pl/public_nodejs/
         rsync -avz next.config.cjs ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/domains/ckks.edu.pl/public_nodejs/
+        rsync -avz pages/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/domains/ckks.edu.pl/public_nodejs/pages/
         rsync -avz --exclude='galeria/*' --exclude='img/*' --exclude='o/*' public/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/domains/ckks.edu.pl/public_nodejs/public/
         
         # Install dependencies and restart on server
