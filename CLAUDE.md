@@ -14,6 +14,7 @@ The project has different API configurations for development and production:
 - **Local API**: NestJS backend expected at `http://localhost:3001` (via `start-dev.sh`)
 - **Fallback API**: External API at `https://api.ckks.pl/api` (when local unavailable)
 - **Development Script**: `./start-dev.sh` starts both frontend and local API from `../ckks-api`
+- **Script Features**: Port checking, parallel startup, graceful shutdown with Ctrl+C
 
 **Production Mode:**
 - **Primary API**: NestJS backend at `https://api.ckks.pl` (separate application)
@@ -91,11 +92,17 @@ npm run lint
 # Run Jest tests
 npm run test
 
-# Run Jest in watch mode
+# Run Jest in watch mode  
 npm run test_watch
 
 # Run specific test file
 npm test -- --testPathPattern="components.*\.test\.js"
+
+# Run API tests (if ../ckks-api is available)
+npm run test:api
+
+# Run all tests (frontend and API)
+npm run test:all
 ```
 
 ## Architecture & Key Patterns
@@ -443,3 +450,6 @@ curl http://localhost:3000/api/course  # Via Next.js proxy
 ## Additional Notes
 - **News Section Note**: "news to nie jest blog" - indicating that the current news implementation might not strictly follow traditional blog formats
 - kursand_id nie moze byc auto_increment
+- w katalogu ckks.edu.pl jest frontend
+- w katalogu ckks-api jest API
+- aplikacja w katalogu ckks.edu.pl ma byc wdrozona na produkcje mydevil.net w katalogu domains/ckks.edu.pl

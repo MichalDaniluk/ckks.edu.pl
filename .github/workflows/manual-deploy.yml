@@ -88,14 +88,14 @@ jobs:
             tar -xzf ckks-deployment.tar.gz -C public_html
             rm ckks-deployment.tar.gz
             
-            devil www restart api.ckks.pl
+            devil www restart ckks.edu.pl
         EOF
         fi
 
     - name: Health check
       run: |
         sleep 30
-        HEALTH_URL="${{ inputs.environment == 'production' && 'https://api.ckks.pl' || 'https://api-staging.ckks.pl' }}"
+        HEALTH_URL="${{ inputs.environment == 'production' && 'https://ckks.edu.pl' || 'https://staging.ckks.edu.pl' }}"
         curl -f "${HEALTH_URL}/api/course" || exit 1
         echo "✅ Deployment to ${{ inputs.environment }} successful"
 

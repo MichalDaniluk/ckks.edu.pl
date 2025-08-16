@@ -28,14 +28,14 @@ This directory contains GitHub Actions workflows for the CKKS educational platfo
 - Optional force deployment (skips tests)
 - SSH deployment to MyDevil.net server
 - Health check verification
-- Automatic server restart with `devil www restart api.ckks.pl`
+- Automatic server restart with `devil www restart ckks.edu.pl`
 
 **Required Secrets:**
 - `SSH_PRIVATE_KEY`: Private SSH key for server access
 - `SSH_HOST`: Server hostname (e.g., s42.mydevil.net)
 - `SSH_USER`: SSH username (e.g., ckkspl)
 
-**Important:** This repository deploys the Frontend (Next.js) to api.ckks.pl domain. The NestJS API backend is maintained in a separate repository.
+**Important:** This repository deploys the Frontend (Next.js) to ckks.edu.pl domain. The NestJS API backend is maintained in a separate repository at ../ckks-api.
 
 ### 3. Security Scan - `security.yml`
 **Triggers:** Push/PR to main/develop, Weekly schedule (Mondays 2 AM), Manual
@@ -83,8 +83,8 @@ SSH_USER=ckkspl           # Your SSH username
 On your MyDevil.net server:
 - SSH access configured
 - `devil` command available for server management
-- Directory structure: `~/domains/api.ckks.pl/public_nodejs` for application files
-- Frontend deployment target: api.ckks.pl domain
+- Directory structure: `~/domains/ckks.edu.pl/public_nodejs` for application files
+- Frontend deployment target: ckks.edu.pl domain
 
 ## Workflow Usage
 
@@ -143,21 +143,21 @@ API=https://api.ckks.pl/api               # Legacy API fallback
 - Server may need more time to restart
 - API endpoints might be unavailable
 - Check server logs on MyDevil.net
-- Verify api.ckks.pl domain configuration
+- Verify ckks.edu.pl domain configuration
 
 **Permission Denied:**
 - SSH key might not have correct permissions
 - User might not have access to target directories
 - Check `devil` command availability
-- Verify access to ~/domains/api.ckks.pl/public_nodejs
+- Verify access to ~/domains/ckks.edu.pl/public_nodejs
 
 ### Debugging Tips
 
 1. **Check workflow logs** in Actions tab
 2. **Test locally** with same environment variables
 3. **Verify server status** via SSH manually: `ssh ckkspl@s42.mydevil.net`
-4. **Check API health** endpoints directly: `curl https://api.ckks.pl/api/course`
-5. **Verify domain configuration**: Ensure api.ckks.pl points to correct directory
+4. **Check API health** endpoints directly: `curl https://ckks.edu.pl/api/course`
+5. **Verify domain configuration**: Ensure ckks.edu.pl points to correct directory
 
 ## Development Workflow
 
@@ -184,15 +184,15 @@ yarn prod
 ## Architecture Notes
 
 ### Repository Structure
-- **This Repository**: Next.js Frontend application
-- **Separate Repository**: NestJS API backend (maintained separately)
-- **Production Domain**: Frontend deployed to api.ckks.pl
-- **API Endpoints**: Backend API accessible at api.ckks.pl/api/*
+- **This Repository**: Next.js Frontend application (ckks.edu.pl/)
+- **Separate Repository**: NestJS API backend at ../ckks-api/
+- **Production Domain**: Frontend deployed to ckks.edu.pl
+- **API Endpoints**: Backend API accessible at ckks.edu.pl/api/* (proxied from separate API)
 
 ### Deployment Flow
 ```
-Frontend Repository (this) → GitHub Actions → api.ckks.pl (Frontend)
-Backend Repository (separate) → Manual/CI → api.ckks.pl (API endpoints)
+Frontend Repository (this) → GitHub Actions → ckks.edu.pl (Frontend)
+Backend Repository (../ckks-api) → Manual/CI → ckks.edu.pl (API endpoints)
 ```
 
 ## Additional Resources
