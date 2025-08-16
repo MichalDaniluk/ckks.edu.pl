@@ -453,3 +453,4 @@ curl http://localhost:3000/api/course  # Via Next.js proxy
 - w katalogu ckks.edu.pl jest frontend
 - w katalogu ckks-api jest API
 - aplikacja w katalogu ckks.edu.pl ma byc wdrozona na produkcje mydevil.net w katalogu domains/ckks.edu.pl
+- domena to ckks.edu.pl

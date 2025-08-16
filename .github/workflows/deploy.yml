@@ -49,26 +49,16 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
         
-        # Create deployment archive
-        tar -czf ckks-deployment.tar.gz -C out .
+        # Use rsync to deploy .next build directory and required files
+        rsync -avz --delete .next/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/domains/ckks.edu.pl/public_nodejs/.next/
+        rsync -avz package.json ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/domains/ckks.edu.pl/public_nodejs/
+        rsync -avz next.config.cjs ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/domains/ckks.edu.pl/public_nodejs/
+        rsync -avz --exclude='galeria/*' --exclude='img/*' --exclude='o/*' public/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/domains/ckks.edu.pl/public_nodejs/public/
         
-        # Upload and deploy
-        scp ckks-deployment.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
+        # Install dependencies and restart on server
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-          # Backup current deployment
-          if [ -d public_html_backup ]; then
-            rm -rf public_html_backup
-          fi
-          if [ -d public_html ]; then
-            mv public_html public_html_backup
-          fi
-          
-          # Extract new deployment
-          mkdir -p public_html
-          tar -xzf ckks-deployment.tar.gz -C public_html
-          rm ckks-deployment.tar.gz
-          
-          # Restart server
+          cd ~/domains/ckks.edu.pl/public_nodejs
+          npm ci --only=production
           devil www restart ckks.edu.pl
         EOF
 
