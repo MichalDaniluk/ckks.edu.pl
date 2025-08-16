@@ -36,7 +36,7 @@ jobs:
         node-version: '20.x'
 
     - name: Install dependencies
-      run: npm install
+      run: npm install --legacy-peer-deps
 
     - name: Run quality checks
       if: ${{ !inputs.skip_tests }}

@@ -26,7 +26,7 @@ jobs:
         node-version: '20.x'
 
     - name: Install dependencies
-      run: npm install
+      run: npm install --legacy-peer-deps
 
     - name: Run tests (can be skipped with force_deploy)
       if: ${{ !inputs.force_deploy }}
