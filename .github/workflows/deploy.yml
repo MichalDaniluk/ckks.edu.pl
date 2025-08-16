@@ -24,26 +24,26 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20.x'
-        cache: 'yarn'
+        cache: 'npm'
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
 
     - name: Run tests (can be skipped with force_deploy)
       if: ${{ !inputs.force_deploy }}
       run: |
-        yarn lint
-        yarn test
+        npm run lint
+        npm run test
 
     - name: Build for production
-      run: yarn build
+      run: npm run build
       env:
         NODE_ENV: production
         CKKS_API_URL: https://api.ckks.pl
         API: https://api.ckks.pl/api
 
     - name: Export static build
-      run: yarn prod
+      run: npm run prod
       env:
         NODE_ENV: production
         CKKS_API_URL: https://api.ckks.pl

@@ -34,26 +34,26 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20.x'
-        cache: 'yarn'
+        cache: 'npm'
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
 
     - name: Run quality checks
       if: ${{ !inputs.skip_tests }}
       run: |
-        yarn lint
-        yarn test
+        npm run lint
+        npm run test
 
     - name: Build for ${{ inputs.environment }}
-      run: yarn build
+      run: npm run build
       env:
         NODE_ENV: production
         CKKS_API_URL: ${{ inputs.environment == 'production' && 'https://api.ckks.pl' || 'https://api-staging.ckks.pl' }}
         API: ${{ inputs.environment == 'production' && 'https://api.ckks.pl/api' || 'https://api-staging.ckks.pl/api' }}
 
     - name: Export static build
-      run: yarn prod
+      run: npm run prod
       env:
         NODE_ENV: production
         CKKS_API_URL: ${{ inputs.environment == 'production' && 'https://api.ckks.pl' || 'https://api-staging.ckks.pl' }}
