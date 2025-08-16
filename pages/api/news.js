@@ -1,11 +1,28 @@
 export default async function handler(req, res) {
   try {
-    const apiUrl = process.env.CKKS_API_URL || 'http://localhost:3001';
+    const apiUrl = process.env.CKKS_API_URL || process.env.API;
     
-    // Try to get news from local API
+    if (!apiUrl) {
+      console.error('No API URL configured. Set CKKS_API_URL or API environment variable.');
+      // Return mock data as fallback
+      const mockNews = [
+        {
+          id: 1,
+          title: "Aktualności CKKS",
+          slug: "aktualnosci-ckks",
+          excerpt: "Najnowsze informacje z naszej placówki...",
+          content: "Bieżące informacje o działalności Centrum Kształcenia Kadr Sportowych.",
+          published_at: "2024-01-20T00:00:00.000Z",
+          image: "/img/logo.png"
+        }
+      ];
+      return res.status(200).json(mockNews);
+    }
+    
+    // Try to get news from API
     const response = await fetch(`${apiUrl}/api/news`);
     if (!response.ok) {
-      // If local API doesn't have news endpoint, return mock news data
+      // If API doesn't have news endpoint, return mock news data
       const mockNews = [
         {
           id: 1,
